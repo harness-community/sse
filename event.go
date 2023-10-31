@@ -23,7 +23,8 @@ type Event struct {
 }
 
 func (e *Event) hasContent() bool {
-	return len(e.ID) > 0 || len(e.Data) > 0 || len(e.Event) > 0 || len(e.Retry) > 0
+	// If a comment has an empty string, it's a heartbeat and we want to forward it to the application
+	return len(e.ID) > 0 || len(e.Data) > 0 || len(e.Event) > 0 || len(e.Retry) > 0 || string(e.Comment) == ""
 }
 
 // EventStreamReader scans an io.Reader looking for EventStream messages.
