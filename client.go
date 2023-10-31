@@ -20,10 +20,11 @@ import (
 )
 
 var (
-	headerID    = []byte("id:")
-	headerData  = []byte("data:")
-	headerEvent = []byte("event:")
-	headerRetry = []byte("retry:")
+	headerID      = []byte("id:")
+	headerData    = []byte("data:")
+	headerEvent   = []byte("event:")
+	headerRetry   = []byte("retry:")
+	headerComment = []byte(":")
 )
 
 func ClientMaxBufferSize(s int) func(c *Client) {
@@ -342,6 +343,11 @@ func (c *Client) processEvent(msg []byte) (event *Event, err error) {
 			e.Event = append([]byte(nil), trimHeader(len(headerEvent), line)...)
 		case bytes.HasPrefix(line, headerRetry):
 			e.Retry = append([]byte(nil), trimHeader(len(headerRetry), line)...)
+		case bytes.HasPrefix(line, headerComment):
+			// Don't set a default value for comment because if it's an empty string then it's a heartbeat event that
+			// we want to forward to the application
+			e.Comment = trimHeader(len(headerComment), line)
+
 		default:
 			// Ignore any garbage that doesn't match what we're looking for.
 		}
