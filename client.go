@@ -344,7 +344,7 @@ func (c *Client) processEvent(msg []byte) (event *Event, err error) {
 		case bytes.HasPrefix(line, headerRetry):
 			e.Retry = append([]byte(nil), trimHeader(len(headerRetry), line)...)
 		case bytes.HasPrefix(line, headerComment):
-			// Don't set a default value for comment, as if it's an empty string then it's a heartbeat event that
+			// Don't set a default value for comment because if it's an empty string then it's a heartbeat event that
 			// we want to forward to the application
 			e.Comment = trimHeader(len(headerComment), line)
 
