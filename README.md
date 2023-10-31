@@ -1,4 +1,14 @@
-# SSE - Server Sent Events Client/Server Library for Go
+# Harness fork of `r3labs/sse`
+
+## SSE - Server Sent Events Client/Server Library for Go
+
+## Fork Synopsis
+Currently, the main difference between this and the original is that that new lines `\n` are forwarded from the library to the
+application. This is because our SSE server sends heartbeat events in this format. 
+
+The original library does not forward events without `event` , `data` etc. so the heartbeat mechanism could not be used by our Feature Flags Golang SDK.
+
+We should aim to keep this fork in sync with the original as much as possible. This should not be too much of a burden, considering the code diff is small.
 
 ## Synopsis
 
