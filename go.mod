@@ -1,4 +1,4 @@
-module github.com/harness-community/sse/v2
+module github.com/harness-community/sse/v3
 
 go 1.13
 
